@@ -18,11 +18,11 @@ The database consists of three tables:
 
 1)Product: Stores product details.
 
-Columns: prod_id (Primary Key), name, quantity.
+Columns: prod_id (Primary Key), Pname, price.
 
 2)Depot: Represents storage locations.
 
-Columns: dep_id (Primary Key), location, capacity.
+Columns: dep_id (Primary Key), addr, volume.
 
 3)Stock: Links products and depots, managing inventory levels.
 

@@ -16,7 +16,7 @@ Demonstrates real-world use cases for ACID properties.
 
 The database consists of three tables:
 
-1) Product: Stores product details.
+1)Product: Stores product details.
 
 Columns: prod_id (Primary Key), name, quantity.
 

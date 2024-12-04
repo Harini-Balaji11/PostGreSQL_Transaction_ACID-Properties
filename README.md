@@ -2,7 +2,7 @@
 
 **Project Overview**
 
-This project explores the implementation of a database system that adheres to the four ACID properties—Atomicity, Consistency, Isolation, and Durability—using PostgreSQL. We designed and executed transactions that manage products, depots, and inventory stocks. The goal was to ensure that the database maintains data integrity and consistency during complex operations, such as insertions, updates, and deletions.
+This project explores the implementation of a database system that adheres to the four ACID properties—Atomicity, Consistency, Isolation, and Durability—using PostgreSQL. We designed and executed transactions that manage products, depots, and stocks. The goal was to ensure that the database maintains data integrity and consistency during complex operations, such as insertions, updates, and deletions.
 
 **Objective**
 

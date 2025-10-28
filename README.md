@@ -1,132 +1,249 @@
-**ACID-Compliant Database Management Using PostgreSQL**
+# PostgreSQL Transaction Management and ACID Properties
 
-**Project Overview**
+## 🚀 Portfolio Project: Database Management System
 
-This project explores the implementation of a database system that adheres to the four ACID properties—Atomicity, Consistency, Isolation, and Durability—using PostgreSQL. We designed and executed transactions that manage products, depots, and stocks. The goal was to ensure that the database maintains data integrity and consistency during complex operations, such as insertions, updates, and deletions.
+This project demonstrates the practical implementation of **ACID properties** (Atomicity, Consistency, Isolation, Durability) using PostgreSQL with Python. It showcases professional database transaction management for an inventory management system with products, depots, and stock levels.
 
-**Objective**
+**Author:** Harini Balaji | **Course:** CS623 Database Systems | **Date:** Spring 2026
 
-To create a robust relational database system that:
+---
 
-Handles complex operations across multiple tables.
-Maintains consistency and integrity through cascading constraints.
-Demonstrates real-world use cases for ACID properties.
+## 📋 Overview
 
-**Database Schema**
+This project implements a robust relational database system that:
 
-The database consists of three tables:
+- ✅ Handles complex operations across multiple tables with referential integrity
+- ✅ Maintains consistency through cascading constraints (ON UPDATE/DELETE CASCADE)
+- ✅ Demonstrates real-world ACID transaction scenarios
+- ✅ Includes performance benchmarking and transaction rollback demonstrations
+- ✅ Shows professional error handling and code organization
 
-1)Product: Stores product details.
+## 🎯 Objectives
 
-Columns: prod_id (Primary Key), Pname, price.
+### Primary Goals
 
-2)Depot: Represents storage locations.
+1. Design and implement a relational database schema with foreign key relationships
+2. Demonstrate **Atomicity** through transaction rollback scenarios
+3. Ensure **Consistency** with cascading constraints
+4. Configure **Isolation** levels (SERIALIZABLE) for data integrity
+5. Validate **Durability** by persisting committed transactions
+6. Implement robust error handling and transaction management
+7. Benchmark performance of commit vs rollback operations
 
-Columns: dep_id (Primary Key), addr, volume.
+### Real-World Applications
 
-3)Stock: Links products and depots, managing inventory levels.
+This implementation showcases critical database principles used in:
+- 🛒 **E-commerce platforms:** Inventory and product management
+- 🏦 **Banking:** Financial transactions and account balance
+- 🚚 **Logistics:** Warehouse and supply chain operations
+- 💻 **Distributed Systems:** Multi-database transaction coordination
 
-Columns: prod_id (Foreign Key), dep_id (Foreign Key), quantity.
+---
 
-**Cascading rules:**
+## 🗂️ Database Schema
 
-ON UPDATE CASCADE: Updates propagate automatically.
-ON DELETE CASCADE: Deletes remove dependent records.
+The database consists of three interconnected tables:
 
-**Key Features**
+### 1. Product Table
+- `prod_id` (Primary Key): Unique product identifier
+- `Pname`: Product name
+- `price`: Product price
 
-**ACID-Compliant Transactions:**
+### 2. Depot Table
+- `dep_id` (Primary Key): Unique depot identifier
+- `addr`: Depot address
+- `volume`: Storage volume capacity
 
-Atomic operations to ensure no partial changes occur.
-Cascading rules for automatic updates and deletions.
+### 3. Stock Table
+- `prod_id` (Foreign Key → Product)
+- `dep_id` (Foreign Key → Depot)
+- `quantity`: Stock quantity
 
-**Transaction Management:**
+### Entity-Relationship Diagram
 
-**Isolation Level:**
+```
+┌──────────────┐         ┌──────────────┐
+│   Product    │         │    Depot     │
+│──────────────│         │──────────────│
+│ prod_id (PK) │         │ dep_id (PK)  │
+│ Pname        │         │ addr         │
+│ price        │         │ volume       │
+└──────┬───────┘         └──────┬───────┘
+       │                        │
+       │    ┌──────────────┐    │
+       └───►│     Stock    │◄───┘
+            │──────────────│
+            │ prod_id (FK) │
+            │ dep_id (FK)  │
+            │ quantity     │
+            └──────────────┘
+```
 
-Set to SERIALIZABLE to prevent concurrency issues.
-Explicit BEGIN and COMMIT commands for grouped operations.
+**Cascading Rules:**
+- `ON UPDATE CASCADE`: Changes to product/depot IDs automatically update Stock table
+- `ON DELETE CASCADE`: Deletions automatically remove associated Stock entries
 
-**Python Integration:**
+---
 
-Used psycopg2 to manage database transactions.
-Included robust error handling and dynamic schema verification.
+## 🛠️ Technology Stack
 
-**Implemented Operations**
+| Component | Version/Details |
+|-----------|----------------|
+| **Python** | 3.11+ |
+| **PostgreSQL** | 15.x |
+| **Database Adapter** | psycopg2 2.9.10 |
+| **Data Visualization** | pandas, matplotlib |
+| **Output Formatting** | tabulate |
 
-1. Insert Operations
+## 🔑 Key Features
 
-**Added a new product (p100) and linked it to a depot (d2):**
+### ACID-Compliant Transactions
+- **Atomic operations:** All-or-nothing execution with rollback capability
+- **Cascading rules:** Automatic updates and deletions via foreign keys
+- **Isolation Level:** SERIALIZABLE prevents concurrency issues
+- **Durability:** Explicit COMMIT ensures data persistence
 
+### Transaction Management
+- Context managers for safe database connections
+- Helper functions for query execution and display
+- Performance benchmarking of commit vs rollback operations
+- Robust error handling with automatic rollback
+
+### Code Quality
+- Modular, reusable functions
+- Clean separation of concerns
+- Professional documentation
+- Performance analysis with visualizations
+
+## 📝 Implemented Operations
+
+The notebook demonstrates a complete transaction including:
+
+### 1. Insert Operations
+```sql
 INSERT INTO product VALUES ('p100', 'cd', 5);
 INSERT INTO stock VALUES ('p100', 'd2', 50);
+INSERT INTO depot VALUES ('d100', 'Chicago', 100);
+INSERT INTO stock VALUES ('p1', 'd100', 100);
+```
 
-2. Update Operations
-   
-**Updated a product ID (p1 to pp1):**
-**Updated a depot ID (d1 to dd1):**
-
+### 2. Update Operations (with CASCADE)
+```sql
 UPDATE product SET prod_id = 'pp1' WHERE prod_id = 'p1';
+-- Stock table automatically updated via CASCADE
 UPDATE depot SET dep_id = 'dd1' WHERE dep_id = 'd1';
+-- Stock table automatically updated via CASCADE
+```
 
-3. Delete Operations
-
-**Deleted a product (pp1) and its associated inventory:**
-**Deleted a depot (dd1) and its linked inventory:**
-
+### 3. Delete Operations (with CASCADE)
+```sql
 DELETE FROM product WHERE prod_id = 'pp1';
+-- Associated Stock entries automatically deleted
 DELETE FROM depot WHERE dep_id = 'dd1';
+-- Associated Stock entries automatically deleted
+```
 
-**Challenges and Solutions**
+## 🎓 Key Takeaways
 
-**Foreign Key Constraints:**
+### Learning Outcomes
 
-**Problem:** Missing unique constraints on referenced columns.
-**Solution:** Added primary keys to prod_id and dep_id.
+1. **Cascading Constraints** simplify data management
+   - Automatic propagation eliminates manual synchronization
+   - Reduces code complexity and potential bugs
 
-**Cascading Conflicts:**
+2. **Transaction Management** ensures data integrity
+   - Explicit COMMIT/ROLLBACK control provides flexibility
+   - Atomicity prevents inconsistent states
 
-**Problem:** Manual updates to linked tables caused redundancy.
-**Solution:** Introduced ON UPDATE CASCADE and ON DELETE CASCADE to handle these automatically.
+3. **ACID Properties** are essential for production systems
+   - Ensures reliable and consistent data handling
+   - Critical for applications requiring data integrity
 
-**Error Handling:**
+4. **Error Handling** enables graceful degradation
+   - Proper exception catching and rollback
+   - Maintains database state even on failures
 
-**Problem:** Transaction rollback on errors disrupted operations.
-**Solution:** Implemented comprehensive error handling and schema validation.
+---
 
-**Real-World Applications**
+## 🚀 How to Run
 
-This project demonstrates the practical implementation of ACID principles, which are critical in industries such as:
+### Prerequisites
 
-**E-commerce:** Ensuring inventory systems reflect product updates or deletions.
-**Logistics:** Managing warehouse operations and stock levels.
-**Banking:** Handling transactional data to prevent inconsistencies.
+1. Install PostgreSQL 15+ from [postgresql.org](https://www.postgresql.org/download/)
+2. Create the database schema using your preferred method
+3. Ensure Python 3.11+ is installed
 
-**How to Run**
+### Installation
 
-1) Set Up the Database:
+```bash
+# Install required Python packages
+pip install psycopg2 pandas tabulate matplotlib
+```
 
-Install PostgreSQL.
-Create the schema using the provided SQL commands.
+### Configuration
 
-2) Run Python Code:
+Update the database credentials in the notebook:
 
-Install the required Python libraries:
+```python
+DB_CONFIG = {
+    "host": "localhost",
+    "database": "postgres",
+    "user": "your_username",
+    "password": "your_password"
+}
+```
 
-**pip install psycopg2 tabulate**
+### Running the Notebook
 
-3) Verify Results:
+1. Open `CS623 Project (2).ipynb` in Jupyter Notebook or JupyterLab
+2. Run all cells sequentially
+3. Review the output for ACID compliance verification
+
+### Verify Results
 
 Query the Stock table to see the final output:
 
-**SELECT * FROM stock;**
+```sql
+SELECT * FROM stock;
+```
 
-**Key Takeaways**
+---
 
-Designing a database with cascading rules simplifies data management.
+## 📊 Portfolio Value
 
-ACID principles ensure reliable and consistent data handling.
+This project demonstrates:
 
-Proper schema design and error handling are crucial for real-world systems.
+- ✅ **Solid understanding** of database fundamentals
+- ✅ **Practical experience** with PostgreSQL and Python
+- ✅ **Professional code quality** with error handling and documentation
+- ✅ **Analytical thinking** with performance benchmarking
+- ✅ **Real-world application** of CS theory to business problems
 
-**Thank you for exploring our project!**
+---
+
+## 📚 Related Concepts
+
+- Database normalization
+- Referential integrity
+- Transaction isolation levels
+- Concurrent transaction handling
+- Database recovery
+
+---
+
+## 👤 About
+
+**Harini Balaji**  
+Master's in Data Science | Spring 2026
+
+**Technologies:** PostgreSQL, Python, psycopg2, pandas, matplotlib
+
+---
+
+## 🙏 Acknowledgments
+
+This project was developed as part of CS623 Database Systems coursework at [Your University], demonstrating practical understanding of ACID properties and transaction management.
+
+---
+
+**⭐ If you find this project useful, please consider giving it a star!**

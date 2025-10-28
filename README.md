@@ -4,7 +4,7 @@
 
 This project demonstrates the practical implementation of **ACID properties** (Atomicity, Consistency, Isolation, Durability) using PostgreSQL with Python. It showcases professional database transaction management for an inventory management system with products, depots, and stock levels.
 
-**Author:** Harini Balaji | **Course:** CS623 Database Systems | **Date:** Spring 2026
+**Author:** Harini Balaji | **Course:** CS623 Database Systems | **Date:** Spring 2025
 
 ---
 
@@ -234,7 +234,7 @@ This project demonstrates:
 ## 👤 About
 
 **Harini Balaji**  
-Master's in Data Science | Spring 2026
+Master's in Data Science | Spring 2025
 
 **Technologies:** PostgreSQL, Python, psycopg2, pandas, matplotlib
 

@@ -242,7 +242,7 @@ Master's in Data Science | Spring 2025
 
 ## 🙏 Acknowledgments
 
-This project was developed as part of CS623 Database Systems coursework at [Your University], demonstrating practical understanding of ACID properties and transaction management.
+This project was developed as part of CS623 Database Systems coursework at Pace University, demonstrating practical understanding of ACID properties and transaction management.
 
 ---
 

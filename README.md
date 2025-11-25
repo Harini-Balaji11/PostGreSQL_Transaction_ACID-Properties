@@ -47,6 +47,17 @@ The Stock table links Product and Depot. Both foreign keys use cascading rules s
 
 ---
 
+### Relationship Diagram  
+
+```
+Product (prod_id PK)        Depot (dep_id PK)
+       |                          |
+       |                          |
+       +--------- Stock ----------+
+                 (prod_id FK)
+                 (dep_id FK)
+```
+
 ## Tech Used  
 - Python  
 - PostgreSQL 15  

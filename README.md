@@ -1,5 +1,5 @@
 # PostgreSQL Transaction Management and ACID Properties  
-### CS623 Database Systems – Spring 2025  
+### CS623 Database Systems – Fall 2024 
 
 **Author: Harini Balaji**
 
